@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Music Sample Website</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <section id="nav-bar">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!-- <a class="navbar-brand" href="#">Home</a> -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <!-- <a class="nav-link" href="#">GitHub</a> -->
+              <a href="https://github.com/gabbya8" target="_blank"
+                ><img src="img/github.png" height="36px" width="36px"
+              /></a>
+            </li>
+            <li class="nav-item">
+              <!-- <a class="nav-link" href="#">LinkedIn</a> -->
+              <a
+                href="https://www.linkedin.com/in/gabriellaalexis/"
+                target="_blank"
+                ><img src="img/linkedin1.png" height="36px" width="36px"
+              /></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </section>
+
+    <!-- Song-->
+    <audio id="song-1">
+      <source src="#" type="audio/mpeg" />
+      <p>Your browser does not support the audio element.</p>
+    </audio>
+
+    <div class="song-content">
+      <img src="img/coolio.jpg" width="300" height="300" />
+      <h3>Gangster's Paradise</h3>
+      <p>Coolio</p>
+      <button id="song-play">Play Audio</button>
+      <button id="song-pause">Pause Audio</button>
+    </div>
+
+    <div class="sample-btn">
+      <button class="btn btn1" id="sample">SAMPLES</button>
+    </div>
+    <div class="hidden-buttons">
+      <button id="sample-play">Play Audio</button>
+      <button id="sample-pause">Pause Audio</button>
+    </div>
+    <div class="sample-song" id="sample-song2"></div>
+
+    <!-- My Buttons -->
+    <div class="buttons">
+      <a href="song3.html" class="btn btn-success" id="next">Next</a>
+      <a href="song1.html" class="btn btn-success" id="prev">Prev</a>
+    </div>
+
+    <script type="text/javascript">
+      var xhr = new XMLHttpRequest();
+      var container = document.getElementById("sample-song2");
+      var x = document.getElementsByClassName("hidden-buttons");
+
+      xhr.onload = function () {
+        if (this.status == 200) {
+          container.innerHTML = xhr.responseText;
+        } else {
+          console.warn("Did not receive 200 OK from response");
+        }
+      };
+
+      var btn = document.getElementById("sample");
+
+      btn.addEventListener("click", function () {
+        xhr.open("get", "sample2.html", true);
+        xhr.send();
+        x[0].style.display = "block";
+      });
+
+      $(document).ready(function () {
+        var audioElement = document.createElement("audio");
+        var sample = document.createElement("audio");
+        audioElement.setAttribute(
+          "src",
+          "audio/Coolio - Gangster's Paradise.mp3"
+        );
+        sample.setAttribute(
+          "src",
+          "audio/Stevie Wonder - Pastime Paradise.mp3"
+        );
+
+        audioElement.addEventListener(
+          "ended",
+          function () {
+            this.play();
+          },
+          false
+        );
+
+        sample.addEventListener(
+          "ended",
+          function () {
+            this.play();
+          },
+          false
+        );
+
+        $("#song-play").click(function () {
+          audioElement.play();
+        });
+
+        $("#sample-play").click(function () {
+          sample.play();
+          console.log("sample played");
+        });
+
+        $("#song-pause").click(function () {
+          audioElement.pause();
+        });
+
+        $("#sample-pause").click(function () {
+          sample.pause();
+          console.log("sample paused");
+        });
+      });
+    </script>
+  </body>
+</html>

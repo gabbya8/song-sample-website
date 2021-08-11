@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>JS Bin</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <h2>Sound Information</h2>
+    <div id="length">Duration:</div>
+    <div id="source">Source:</div>
+    <div id="status" style="color: red">Status: Loading</div>
+    <br />
+    <div id="length2">Duration:</div>
+    <div id="source2">Source:</div>
+    <div id="status2" style="color: red">Status: Loading</div>
+
+    <hr />
+    <h2>Control Buttons</h2>
+    <button id="play">Play Song</button>
+    <button id="pause">Pause Song</button>
+    <button id="skip">Skip</button>
+    <br />
+    <br />
+    <button id="play2">Play Sample</button>
+    <button id="pause2">Pause Sample</button>
+    <button id="skip1">Skip</button>
+    <hr />
+    <h2>Playing Information</h2>
+    <div id="currentTime"></div>
+
+    <script>
+      $(document).ready(function () {
+        var audioElement = document.createElement("audio");
+        var sample = document.createElement("audio");
+        audioElement.setAttribute(
+          "src",
+          "audio/Coolio - Gangster's Paradise.mp3"
+        );
+        sample.setAttribute(
+          "src",
+          "audio/Stevie Wonder - Pastime Paradise.mp3"
+        );
+
+        audioElement.addEventListener(
+          "ended",
+          function () {
+            this.play();
+          },
+          false
+        );
+
+        sample.addEventListener(
+          "ended",
+          function () {
+            this.play();
+          },
+          false
+        );
+
+        audioElement.addEventListener("canplay", function () {
+          // this.currentTime = 5;
+          $("#length").text("Duration:" + audioElement.duration + " seconds");
+          $("#source").text("Source:" + audioElement.src);
+          $("#status").text("Status: Ready to play").css("color", "green");
+          $("#currentTime").text("Current second:" + audioElement.currentTime);
+        });
+
+        sample.addEventListener("canplay", function () {
+          // this.currentTime = 5;
+          $("#length2").text("Duration:" + sample.duration + " seconds");
+          $("#source2").text("Source:" + sample.src);
+          $("#status2").text("Status: Ready to play").css("color", "green");
+          $("#currentTime").text("Current second:" + sample.currentTime);
+        });
+
+        $("#skip").click(function () {
+          audioElement.currentTime = audioElement.duration;
+        });
+
+        $("#skip1").click(function () {
+          sample.currentTime = 2;
+        });
+
+        audioElement.addEventListener("timeupdate", function () {
+          $("#currentTime").text("Current second:" + audioElement.currentTime);
+        });
+
+        sample.addEventListener("timeupdate", function () {
+          $("#currentTime").text("Current second:" + sample.currentTime);
+        });
+
+        $("#play").click(function () {
+          audioElement.play();
+          $("#status").text("Status: Playing");
+        });
+
+        $("#play2").click(function () {
+          sample.play();
+          $("#status").text("Status: Playing");
+        });
+
+        $("#pause").click(function () {
+          audioElement.pause();
+          $("#status").text("Status: Paused");
+        });
+
+        $("#pause2").click(function () {
+          sample.pause();
+          $("#status").text("Status: Paused");
+        });
+      });
+    </script>
+  </body>
+
+  <!-- <script src="js/script.js"></script> -->
+</html>
